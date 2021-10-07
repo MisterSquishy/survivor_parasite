@@ -10,7 +10,7 @@ const App = () => {
 
   useEffect(() => {
     const teamScores = {}
-    Object.keys(teams).forEach(teamName => teamScores[teamName] = +survivorScores[teams[teamName][0]] + +survivorScores[teams[teamName][1]])
+    Object.keys(teams).forEach(teamName => teamScores[teamName] = +survivorScores[teams[teamName][0]].score + +survivorScores[teams[teamName][1]].score)
     setTeamScores(teamScores)
   }, [survivorScores])
 
@@ -49,10 +49,10 @@ const App = () => {
             .map(teamName => (
               <tr key={teamName}>
                 <td>{teamName}</td>
-                <td>{teams[teamName][0]}</td>
-                <td>{+survivorScores[teams[teamName][0]]}</td>
-                <td>{teams[teamName][1]}</td>
-                <td>{+survivorScores[teams[teamName][1]]}</td>
+                <td>{teams[teamName][0]} {!survivorScores[teams[teamName][0]].alive && "😵"}</td>
+                <td>{+survivorScores[teams[teamName][0]].score}</td>
+                <td>{teams[teamName][1]} {!survivorScores[teams[teamName][1]].alive && "😵"}</td>
+                <td>{+survivorScores[teams[teamName][1]].score}</td>
                 <td>{teamScores[teamName]}</td>
               </tr>)
             )}

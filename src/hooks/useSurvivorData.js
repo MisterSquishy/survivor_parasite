@@ -9,10 +9,11 @@ const useSurvivorData = () => {
     el.innerHTML = survivorHtmlJson.contents
 
     const survivorScores = {}
-    const names = Array.from(el.querySelectorAll('.survivorstatinfo')).map(name => name.innerText.trim())
+    const names = Array.from(el.querySelectorAll('td:nth-child(1)')).map(name => name.innerText.trim())
+    const alives = Array.from(el.querySelectorAll('td:nth-child(1)')).map(name => name.querySelector("img.torch").alt.includes("lighted"))
     const scores = Array.from(el.querySelectorAll('td:nth-child(3)')).map(score => score.innerText.trim())
     scores.forEach((score, i) => {
-      survivorScores[names[i + 1]] = score
+      survivorScores[names[i]] = { score, alive: alives[i]}
     })
 
     setSurvivorScores(survivorScores)
