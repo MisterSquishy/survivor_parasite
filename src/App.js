@@ -4,17 +4,19 @@ import teams from './data/teams'
 
 const App = () => {
   const survivorScores = useSurvivorData()
-  const [teamScores, setTeamScores] = useState({})
+  const [teamScores, setTeamScores] = useState()
 
   console.log(survivorScores)
 
   useEffect(() => {
-    const teamScores = {}
-    Object.keys(teams).forEach(teamName => teamScores[teamName] = +survivorScores[teams[teamName][0]].score + +survivorScores[teams[teamName][1]].score)
-    setTeamScores(teamScores)
+    if(survivorScores) {
+      const teamScores = {}
+      Object.keys(teams).forEach(teamName => teamScores[teamName] = +survivorScores[teams[teamName][0]].score + +survivorScores[teams[teamName][1]].score)
+      setTeamScores(teamScores)
+    }
   }, [survivorScores])
 
-  if (!teamScores) {
+  if (!teamScores || !survivorScores) {
     return <div>Fuck</div>
   }
 
