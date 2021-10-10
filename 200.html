@@ -26,6 +26,8 @@
           : 1
       );
       sortedTeams.forEach(teamName => appendTeamRow(teamName, survivorDataByName))
+      document.querySelector("#loading").hidden = true
+      document.querySelector("table").hidden = false
     };
 
     const appendTeamRow = (teamName, survivorDataByName) => {
@@ -101,7 +103,8 @@
   </script>
 </head>
 <body onload="init()">
-  <table>
+  <span id="loading">Loading…</span>
+  <table hidden="true">
     <thead>
       <tr>
         <th>Team name</th>
