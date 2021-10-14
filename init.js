@@ -6,15 +6,37 @@ const init = async () => {
       ? -1
       : 1
   );
-  sortedTeams.forEach(teamName => appendTeamRow(teamName, survivorDataByName))
+  let ranking = 0
+  let prevScore = 0
+  for (const teamName of sortedTeams) {
+    const teamScore = +survivorDataByName[TEAMS[teamName][0]].score + +survivorDataByName[TEAMS[teamName][1]].score
+    if (teamScore < prevScore) {
+      ranking++
+      appendEmptyRow()
+    }
+    prevScore = teamScore
+    appendTeamRow(teamName, survivorDataByName, ranking)
+  }
   document.querySelector("#loading").hidden = true
   document.querySelector("table").hidden = false
 };
 
-const appendTeamRow = (teamName, survivorDataByName) => {
+const appendEmptyRow = () => {
+  const row = document.createElement("tr")
+  const dividerCol = document.createElement("td")
+  dividerCol.innerText = "\n"
+  row.appendChild(dividerCol)
+  document.querySelector("tbody").appendChild(row)
+}
+
+const appendTeamRow = (teamName, survivorDataByName, ranking) => {
   const player1Name = TEAMS[teamName][0]
   const player2Name = TEAMS[teamName][1]
   const row = document.createElement("tr")
+
+  const rankingCol = document.createElement("td")
+  rankingCol.innerText = ranking + 1
+  row.appendChild(rankingCol)
 
   const teamNameCol = document.createElement("td")
   teamNameCol.innerText = teamName
