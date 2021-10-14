@@ -41,8 +41,12 @@ const appendTeamRow = (teamName, survivorDataByName, ranking) => {
   row.appendChild(rankingCol)
 
   const teamNameCol = document.createElement("td")
-  teamNameCol.innerText = teamName
+  teamNameCol.innerHTML = "<strong>" + teamName + "</strong>"
   row.appendChild(teamNameCol)
+
+  const totalScoreCol = document.createElement("td")
+  totalScoreCol.innerText = +survivorDataByName[player1Name].score + +survivorDataByName[player2Name].score
+  row.appendChild(totalScoreCol)
 
   const player1NameCol = document.createElement("td")
   player1NameCol.innerText = player1Name
@@ -65,10 +69,6 @@ const appendTeamRow = (teamName, survivorDataByName, ranking) => {
   const player2ScoreCol = document.createElement("td")
   player2ScoreCol.innerText = +survivorDataByName[player2Name].score
   row.appendChild(player2ScoreCol)
-
-  const totalScoreCol = document.createElement("td")
-  totalScoreCol.innerText = +survivorDataByName[player1Name].score + +survivorDataByName[player2Name].score
-  row.appendChild(totalScoreCol)
 
   document.querySelector("tbody").appendChild(row)
 }
