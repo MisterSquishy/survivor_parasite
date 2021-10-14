@@ -2,7 +2,7 @@ const init = async () => {
   const survivorDataByName = await loadSurvivorData();
   const sortedTeams = Object.keys(TEAMS).sort((team1, team2) =>
     getTeamScore(team1, survivorDataByName) >
-    getTeamScore(team2, survivorDataByName)
+      getTeamScore(team2, survivorDataByName)
       ? -1
       : 1
   );
@@ -12,7 +12,9 @@ const init = async () => {
     const teamScore = +survivorDataByName[TEAMS[teamName][0]].score + +survivorDataByName[TEAMS[teamName][1]].score
     if (teamScore < prevScore) {
       ranking++
-      appendEmptyRow()
+      for (let i = 0; i < prevScore - teamScore; i++) {
+        appendEmptyRow()
+      }
     }
     prevScore = teamScore
     appendTeamRow(teamName, survivorDataByName, ranking)
