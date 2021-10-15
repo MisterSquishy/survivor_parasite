@@ -31,6 +31,18 @@ const appendEmptyRow = () => {
   document.querySelector("tbody").appendChild(row)
 }
 
+const getNameCol = (playerName, survivorDataByName) => {
+  const playerNameCol = document.createElement("td")
+  playerNameCol.innerText = playerName
+  if (!survivorDataByName[playerName].alive) {
+    playerNameCol.innerText += " 😵"
+  }
+  if (playerName === 'Jairus Robinson') {
+    playerNameCol.onclick = () => document.querySelector("#ripjd").hidden = !document.querySelector("#ripjd").hidden
+  }
+  return playerNameCol
+}
+
 const appendTeamRow = (teamName, survivorDataByName, ranking) => {
   const player1Name = TEAMS[teamName][0]
   const player2Name = TEAMS[teamName][1]
@@ -48,22 +60,14 @@ const appendTeamRow = (teamName, survivorDataByName, ranking) => {
   totalScoreCol.innerText = +survivorDataByName[player1Name].score + +survivorDataByName[player2Name].score
   row.appendChild(totalScoreCol)
 
-  const player1NameCol = document.createElement("td")
-  player1NameCol.innerText = player1Name
-  if (!survivorDataByName[player1Name].alive) {
-    player1NameCol.innerText += " 😵"
-  }
+  const player1NameCol = getNameCol(player1Name, survivorDataByName)
   row.appendChild(player1NameCol)
 
   const player1ScoreCol = document.createElement("td")
   player1ScoreCol.innerText = +survivorDataByName[player1Name].score
   row.appendChild(player1ScoreCol)
 
-  const player2NameCol = document.createElement("td")
-  player2NameCol.innerText = player2Name
-  if (!survivorDataByName[player2Name].alive) {
-    player2NameCol.innerText += " 😵"
-  }
+  const player2NameCol = getNameCol(player2Name, survivorDataByName)
   row.appendChild(player2NameCol)
 
   const player2ScoreCol = document.createElement("td")
